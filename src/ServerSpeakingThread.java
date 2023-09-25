@@ -6,13 +6,11 @@ public class ServerSpeakingThread implements Runnable {
     private ArrayList<Item> stocks;
     private ArrayList<Item> fiis;
     int groupStocksAndFiis;
-    int groupChat;
     int serverPort;
     public ServerSpeakingThread(ArrayList<Item> stockList, ArrayList<Item> fiiList, int stockGroupPort, int chatGroupPort, int servPort) {
         stocks = stockList;
         fiis = fiiList;
         groupStocksAndFiis = stockGroupPort;
-        groupChat = chatGroupPort;
         serverPort = servPort;
     }
 
@@ -32,8 +30,6 @@ public class ServerSpeakingThread implements Runnable {
             socket.joinGroup(serverFullAddr, ni);
 
             while (shouldRun) {
-                // String stockString = stocks.toString();
-                // String fiiString = fiis.toString();
                 String stockString = "";
                 for (Item stock : stocks) {
                     stockString = stockString + stock.toString() + "\n";

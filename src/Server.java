@@ -29,6 +29,8 @@ public class Server {
 		fillStocksAndFIIs();
 
 		Thread speaking = new Thread(new ServerSpeakingThread(stocks, fiis, groupStocksAndFiis, groupChat, serverPort));
+		Thread chatManager = new Thread(new ChatThread(stocks, fiis, groupStocksAndFiis, groupChat, serverPort));
 		speaking.start();
+		chatManager.start();
 	}
 }

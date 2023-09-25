@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.net.*;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Client {
@@ -24,22 +25,39 @@ public class Client {
 
 		String msg = " ";
 		MulticastSocket socket = new MulticastSocket(mode);
-
 		InetAddress ia = InetAddress.getByName("230.0.0.0");
-		InetSocketAddress stocksGroup = new InetSocketAddress(ia , mode);
+		InetSocketAddress addrAndPort = new InetSocketAddress(ia , mode);
 		NetworkInterface ni = NetworkInterface.getByInetAddress(ia);
-		socket.joinGroup(stocksGroup, ni);
+		socket.joinGroup(addrAndPort, ni);
 
 		while(!msg.contains("[END]") && mode == groupStocksAndFiis) {
 			byte[] buffer = new byte[1024];
 
 			DatagramPacket serverMsgPacket = new DatagramPacket(buffer, buffer.length);
 			socket.receive(serverMsgPacket);
-			System.out.println(prefix + " Message received: " + new String(buffer));
+			System.out.println(prefix + " Message received: " + StringBufferUtils.trimNullSpaces(new String(buffer)));
+		}
+
+		if(!msg.contains("[END]") && mode == groupChat) {
+			Random rnd = new Random();
+			int num = 100000 + rnd.nextInt(900000);
+
+			Thread reading = new Thread(new ClientTextReadThread(num));
+			Thread writing = new Thread(new ClientTextInputThread(num));
+
+			try {
+				writing.start();
+				reading.start();
+				reading.join();
+				writing.join();
+			}
+			catch (Exception e) {
+
+			}
 		}
 
 		System.out.println("[CLIENT] Conexao Encerrada!");
-		socket.leaveGroup(stocksGroup, ni);
+		socket.leaveGroup(addrAndPort, ni);
 		socket.close();
 	}
 }
