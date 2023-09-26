@@ -6,6 +6,7 @@ public class ClientTextReadThread implements Runnable {
     static final int serverPort = 4321;
     static final String chatPrefix = "[CHAT]";
     static int identifier;
+    boolean shouldRun = true;
 
     public ClientTextReadThread(int id) {
         identifier = id;
@@ -27,15 +28,21 @@ public class ClientTextReadThread implements Runnable {
             NetworkInterface ni = NetworkInterface.getByInetAddress(ia);
             socket.joinGroup(addrAndPort, ni);
 
-            while (true) {
+            System.out.println("[WARNING] Client identifier " + identifier);
+
+            while (shouldRun) {
                 byte[] buffer = new byte[1024];
                 DatagramPacket packetRead = new DatagramPacket(buffer, buffer.length);
                 socket.receive(packetRead);
 
                 String msg = new String(buffer);
 
+                if (msg.contains("[SERVER] " + identifier + " left the chat\n")) {
+                    shouldRun = false;
+                }
+
                 if (!(getIdentifier(msg) == identifier)) {
-                    System.out.println(chatPrefix + "Message: " + StringBufferUtils.trimNullSpaces(trimIdentifier(msg)));
+                    System.out.println(chatPrefix + getIdentifier(msg) + ": " + StringBufferUtils.trimNullSpaces(trimIdentifier(msg)));
                 }
             }
         }

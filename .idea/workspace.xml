@@ -7,9 +7,10 @@
     <list default="true" id="5c2d0827-c7c0-4696-a252-95297d770bec" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ChatThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChatThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ServerSpeakingThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerSpeakingThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ClientTextInputThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ClientTextInputThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ClientTextReadThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ClientTextReadThread.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

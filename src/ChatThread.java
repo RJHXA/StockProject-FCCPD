@@ -32,8 +32,12 @@ public class ChatThread implements Runnable {
                 DatagramPacket packet = new DatagramPacket(msgBuffer, msgBuffer.length);
                 socket.receive(packet);
 
-                // System.out.println("[SERVER] Message received: " + new String(msgBuffer));
+                if (StringBufferUtils.trimNullSpaces(new String(msgBuffer)).substring(6).equals("quit")) {
+                    System.out.println("[SERVER] Shutting down client " + new String(msgBuffer).substring(0, 6));
+                    msgBuffer = ("[SERVER] " + new String(msgBuffer).substring(0, 6) + " left the chat\n").getBytes();
+                }
 
+                System.out.println("[SERVER] Multicasting message...");
                 DatagramPacket packetToMulticast = new DatagramPacket(msgBuffer, msgBuffer.length, addr, groupChat);
                 socket.send(packetToMulticast);
             }
